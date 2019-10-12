@@ -52,7 +52,7 @@ export class TalentsController {
     /**
      * Delete talent
      */
-    @Delete('id')
+    @Delete(':talentId')
     async deleteTalent(
         @Param('talentId', new ValidateObjectId()) talentId,
     ) {

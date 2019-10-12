@@ -52,11 +52,11 @@ export class HeroesController {
     /**
      * Delete heroe
      */
-    @Delete('id')
+    @Delete(':heroeId')
     async deleteHero(
         @Param('heroeId', new ValidateObjectId()) heroeId,
     ) {
-        return this.heroesService.deleteHeroe(heroeId);
+        return await this.heroesService.deleteHeroe(heroeId);
     }
 
     /**

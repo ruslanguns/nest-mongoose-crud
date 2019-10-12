@@ -14,11 +14,11 @@ export class HeroesService {
     ) { }
 
     async getHeroes(): Promise<Heroes[]> {
-        return await this.heroesModel.find();
+        return await this.heroesModel.find().populate('talents');
     }
 
     async getHeroeById(heroeId: string): Promise<Heroes> {
-        return await this.heroesModel.findById(heroeId);
+        return await this.heroesModel.findById(heroeId).populate('talents');
     }
 
     async createHeroe(heroe: HeroesDto): Promise<Heroes> {
@@ -30,18 +30,18 @@ export class HeroesService {
         return await this.heroesModel.create(heroe);
     }
 
-    async updateHeroe(heroId: string, hero: HeroesDto): Promise<Heroes> {
+    async updateHeroe(heroeId: string, heroe: HeroesDto): Promise<Heroes> {
 
-        const exist = await this.heroesModel.findById(heroId);
+        const exist = await this.heroesModel.findById(heroeId);
         if (!exist) {
             throw new BadRequestException('Heroe not found.');
         } else {
-            return await this.heroesModel.findByIdAndUpdate(heroId, hero, { new: true });
+            return await this.heroesModel.findByIdAndUpdate(heroeId, heroe, { new: true });
         }
     }
 
-    async deleteHeroe(heroId: string): Promise<Heroes> {
-        return await this.heroesModel.findByIdAndRemove(heroId);
+    async deleteHeroe(heroeId: string): Promise<Heroes> {
+        return await this.heroesModel.findByIdAndDelete(heroeId);
     }
 
     async addTalentToHeroe(talentId: string, heroeId: string) {

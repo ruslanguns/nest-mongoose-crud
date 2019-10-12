@@ -25,8 +25,6 @@ export class TalentsService {
         const exist = await this.talentsModel.findOne({ name });
         if (!!exist) { throw new BadRequestException(`${name} Talent already exists`); }
 
-        console.log(talent);
-
         return await this.talentsModel.create(talent);
     }
 
@@ -41,7 +39,7 @@ export class TalentsService {
     }
 
     async deleteTalent(talentId: string): Promise<Talents> {
-        return await this.talentsModel.findByIdAndRemove(talentId);
+        return await this.talentsModel.findByIdAndDelete(talentId);
     }
 
 }
