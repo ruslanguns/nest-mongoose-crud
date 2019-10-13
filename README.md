@@ -4,6 +4,8 @@
 
 # Basic CRUD Sample with Nests and Mongoose
 
+[API Documentation](https://documenter.getpostman.com/view/2862569/SVtWw7HY?version=latest) : Read the API documentation
+
 ## Description
 
 ### Basic CRUD Sample with Nestjs and Mongoose
