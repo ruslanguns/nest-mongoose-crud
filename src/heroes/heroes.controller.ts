@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body, Patch } from '@nestjs/
 import { HeroesDto } from './heroes.dto';
 import { ValidateObjectId } from '../_shared/pipes/validate-object-id.pipe';
 import { HeroesService } from './heroes.service';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 @Controller('heroes')
 export class HeroesController {
@@ -56,7 +57,8 @@ export class HeroesController {
     async deleteHero(
         @Param('heroeId', new ValidateObjectId()) heroeId,
     ) {
-        return await this.heroesService.deleteHeroe(heroeId);
+        await this.heroesService.deleteHeroe(heroeId);
+        throw new HttpException('Heroe deleted', 200);
     }
 
     /**
@@ -69,5 +71,6 @@ export class HeroesController {
     ) {
         return await this.heroesService.addTalentToHeroe(talent, heroeId);
     }
+
 
 }

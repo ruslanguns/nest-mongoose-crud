@@ -14,11 +14,19 @@ export class HeroesService {
     ) { }
 
     async getHeroes(): Promise<Heroes[]> {
-        return await this.heroesModel.find().populate('talents');
+        return await this.heroesModel.find()
+            .populate({
+                path: 'talents',
+                select: 'name',
+            });
     }
 
     async getHeroeById(heroeId: string): Promise<Heroes> {
-        return await this.heroesModel.findById(heroeId).populate('talents');
+        return await this.heroesModel.findById(heroeId).
+            populate({
+                path: 'talents',
+                select: 'name',
+            });
     }
 
     async createHeroe(heroe: HeroesDto): Promise<Heroes> {
@@ -51,9 +59,9 @@ export class HeroesService {
         const heroe = await this.heroesModel.findById(heroeId);
         if (!heroe) { throw new BadRequestException(`Heroe with ID: ${heroeId} does not exist.`); }
 
-        if (heroe.talent.includes(talentId)) { throw new BadRequestException(`Heroe already has this talent.`); }
+        if (heroe.talents.includes(talentId)) { throw new BadRequestException(`Heroe already has this talent.`); }
 
-        heroe.talent.push(talentId);
+        heroe.talents.push(talentId);
         return await heroe.save();
     }
 

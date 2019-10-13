@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
 import { TalentsDto } from './talents.dto';
 import { ValidateObjectId } from '../_shared/pipes/validate-object-id.pipe';
 import { TalentsService } from './talents.service';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 @Controller('talents')
 export class TalentsController {
@@ -56,6 +57,7 @@ export class TalentsController {
     async deleteTalent(
         @Param('talentId', new ValidateObjectId()) talentId,
     ) {
-        return this.talentsService.deleteTalent(talentId);
+        await this.talentsService.deleteTalent(talentId);
+        throw new HttpException('Talent deleted', 200);
     }
 }

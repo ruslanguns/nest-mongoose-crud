@@ -6,5 +6,5 @@ export class HeroesDto {
     name: string;
 
     @IsMongoId({ each: true })
-    talent: string[];
+    talents: string[];
 }
